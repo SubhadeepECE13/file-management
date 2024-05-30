@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Management Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-inline-size: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .file-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .file-list li {
+            margin-block-end: 10px;
+        }
+        .file-list li button {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>File Management Tool</h1>
+        
+        <!-- Create File Form -->
+        <form id="createFileForm">
+            <label for="fileName">Enter file name:</label>
+            <input type="text" id="fileName" name="fileName" required>
+            <button type="submit">Create File</button>
+        </form>
+        
+        <hr>
+        
+        <!-- File List -->
+        <h2>File List</h2>
+        <ul class="file-list" id="fileList">
+            <!-- File items will be dynamically added here -->
+        </ul>
+    </div>
+
+    <script>
+        // Function to create a new file
+        document.getElementById("createFileForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var fileName = document.getElementById("fileName").value;
+            createFile(fileName);
+        });
+
+        // Function to delete a file
+        function deleteFile(fileName) {
+            // Simulate file deletion (replace with actual backend logic)
+            var confirmation = confirm("Are you sure you want to delete '" + fileName + "'?");
+            if (confirmation) {
+                var listItem = document.querySelector("[data-file='" + fileName + "']");
+                listItem.remove();
+                // Perform actual deletion logic here
+            }
+        }
+
+        // Function to create a new file item
+        function createFile(fileName) {
+            var fileList = document.getElementById("fileList");
+            var listItem = document.createElement("li");
+            listItem.dataset.file = fileName;
+            listItem.innerHTML = `
+                <span>${fileName}</span>
+                <button onclick="readFile('${fileName}')">Read</button>
+                <button onclick="deleteFile('${fileName}')">Delete</button>
+            `;
+            fileList.appendChild(listItem);
+            // Perform actual creation logic here
+        }
+
+        // Function to read a file
+        function readFile(fileName) {
+            // Simulate file reading (replace with actual backend logic)
+            alert("Reading file: " + fileName);
+        }
+    </script>
+    <script src="server.js"></script>
+</body>
+</html>
